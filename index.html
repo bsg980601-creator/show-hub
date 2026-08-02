@@ -1,0 +1,163 @@
+<!doctype html><html lang=ko><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>공연 허브 · 그건 문제가 아니야</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Pretendard','Apple SD Gothic Neo',-apple-system,system-ui,sans-serif;
+ margin:0;background:#0e0e10;color:#efeff1;padding:16px;-webkit-text-size-adjust:100%}
+.wrap{max-width:780px;margin:0 auto}
+h1{font-size:20px;margin:6px 0 2px}
+.sub{color:#9a9aa8;font-size:13px;margin-bottom:14px}
+h2{font-size:15px;margin:22px 0 8px;color:#ffd24a;border-bottom:1px solid #2a2a38;padding-bottom:6px}
+h2 small{color:#9a9aa8;font-weight:400;font-size:12px;margin-left:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:9px 8px;border-bottom:1px solid #1e1e26;vertical-align:middle}
+td.who{color:#9a9aa8;white-space:nowrap;width:86px;font-size:12.5px}
+a{color:#8ab4ff;text-decoration:none;font-weight:600;word-break:break-all}
+a:active{opacity:.6}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#555;margin-right:7px;flex:none}
+.dot.up{background:#3dd66f}.dot.down{background:#e5484d}
+.key{color:#ffd24a;font-size:12px;white-space:nowrap}
+.note{color:#9a9aa8;font-size:12px;margin-top:14px;line-height:1.6}
+.svc{display:flex;align-items:center}
+.tag{font-size:11px;background:#2a2a38;color:#c8c8d4;border-radius:5px;padding:2px 6px;margin-left:6px;white-space:nowrap}
+.tag.cam{background:#3a2f00;color:#ffd24a}
+.rig{background:#16161c;border:1px solid #2a2a38;border-radius:9px;padding:11px 13px;margin:14px 0;font-size:13px;line-height:1.65;color:#c8c8d4}
+.rig b{color:#ffd24a}
+#hostbar{background:#16161c;border:1px solid #2a2a38;border-radius:10px;padding:12px 13px;margin-bottom:14px}
+#hostbar .row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+#hostbar input{flex:1;min-width:150px;padding:10px;border-radius:8px;border:1px solid #33333f;
+ background:#0e0e10;color:#fff;font-size:15px;font-family:inherit}
+#hostbar button{padding:10px 13px;border:0;border-radius:8px;background:#3a3a48;color:#fff;
+ font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+#hostbar button.go{background:#4a7fd4}
+#hostbar button:active{opacity:.7}
+#hoststate{font-size:12.5px;color:#9a9aa8;margin-top:8px;line-height:1.5}
+#hoststate b{color:#ffd24a}
+code{background:#23232e;padding:1px 5px;border-radius:4px;font-size:12px}
+</style></head><body><div class=wrap>
+<h1>🎭 「그건 문제가 아니야」 공연 허브</h1>
+<div class=sub>망이 바뀌어도 이 페이지 주소는 그대로 — 아래에 공연 맥북 IP만 새로 넣으면 전 링크가 따라간다.</div>
+
+<div id=hostbar>
+ <div class=row>
+  <input id=hostin placeholder="공연 맥북 IP (예: 192.168.0.2)" autocomplete=off
+         autocapitalize=off autocorrect=off spellcheck=false>
+  <button class=go onclick=applyHost()>적용</button>
+  <button onclick="setHost('localhost')">이 맥</button>
+ </div>
+ <div id=hoststate></div>
+</div>
+
+<div class=rig>
+<b>🎥 장비 배치</b> — 맥북=OBS 스위칭 · 카메라 2대 캡쳐보드 직결 · 서버 5종 / 맥미니=카메라 3번 + 브라우저 화면<br>
+<b>⚠️ 노랑 태그 화면은 맥미니에서 <code>localhost</code>로 열어라.</b>
+브라우저 카메라는 localhost·HTTPS에서만 열려서, 맥미니가 맥북 IP로 접속하면 카메라가 차단된다.<br>
+맥미니 기동: <code>맥미니_송출시작.command</code> → 결과 화면을 <b>HDMI→맥북 캡쳐보드</b> 또는 <b>NDI</b>로 OBS에 넣는다.
+</div>
+
+<h2>PRE · INTRO <small>승인형 채팅 (큐 02.5 채팅 ON)</small></h2>
+<table>
+<tr><td class=who>관객 폰</td><td><span class=svc><span class=dot data-p=8787></span><a data-u=":8787/">채팅 참여</a></span></td><td class=key></td></tr>
+<tr><td class=who>오퍼</td><td><a data-u=":8787/admin">채팅 승인 콘솔</a></td><td class=key data-k=chat></td></tr>
+<tr><td class=who>OBS</td><td><a data-u=":8787/stage?bg=transparent">채팅 송출 (투명)</a></td><td class=key></td></tr>
+</table>
+
+<h2>EP1 · 주영 라이브 <small>SNS 커플 — 투표(큐 13~14)·도네이션</small></h2>
+<table>
+<tr><td class=who>관객 폰</td><td><span class=svc><span class=dot data-p=8899></span><a data-u=":8899/">방송 시청 + 투표</a></span><span class=tag>투표는 열기 전 숨김</span></td><td class=key></td></tr>
+<tr><td class=who>오퍼</td><td><a data-u=":8899/admin">주영 콘솔 (투표·도네·카메라·크로마)</a></td><td class=key data-k=juyoung></td></tr>
+<tr><td class=who>OBS</td><td><a data-u=":8899/overlay">방송화면 (장면 재생)</a></td><td class=key></td></tr>
+<tr><td class=who>OBS</td><td><a data-u=":8899/overlay?bg=live&cam=phone">방송화면 라이브캠 (아이폰)</a><span class=tag>폰에서 열면 9:16</span></td><td class=key></td></tr>
+</table>
+
+<h2>EP1 · 괄사 뷰티 <small>주영 실시간 보정 — 관객 얼굴</small></h2>
+<table>
+<tr><td class=who>맥미니</td><td><span class=svc><span class=dot data-p=8777></span><a data-u=":8777/뷰티_송출.html">뷰티 송출</a></span><span class="tag cam">카메라 — 맥미니 localhost</span></td><td class=key></td></tr>
+<tr><td class=who>오퍼 폰</td><td><a data-u=":8777/뷰티_리모컨.html">뷰티 리모컨</a></td><td class=key data-k=relay></td></tr>
+<tr><td class=who>맥미니</td><td><a data-u=":8777/괄사_턱선슬리밍_테스트.html">괄사 턱선 슬리밍</a><span class="tag cam">카메라</span></td><td class=key></td></tr>
+</table>
+
+<h2>EP2 · 고등어 <small>도전 게임(큐 19) → 레이스(큐 23)</small></h2>
+<table>
+<tr><td class=who>송출</td><td><span class=svc><span class=dot data-p=3200></span><a data-u=":3200/">고등어 육지 대탈출 (원버튼)</a></span></td><td class=key>스페이스바</td></tr>
+<tr><td class=who>송출</td><td><span class=svc><span class=dot data-p=3000></span><a data-u=":3000/host.html">물고기 그랑프리 호스트</a></span></td><td class=key>S시작·R리셋·E종료</td></tr>
+<tr><td class=who>관객 폰</td><td><a data-u=":3000/controller.html">레이스 컨트롤러</a></td><td class=key data-k=race></td></tr>
+</table>
+
+<h2>EP4 · 얼굴필터·인형 합성 <small>맵핑 스왑 → 관객 합성 → 필터 룰렛 (큐 38)</small></h2>
+<table>
+<tr><td class=who>맥미니</td><td><span class=svc><span class=dot data-p=8777></span><a data-u=":8777/얼굴필터.html">관객 얼굴필터</a></span><span class="tag cam">카메라 — 맥미니 localhost</span></td><td class=key></td></tr>
+<tr><td class=who>맥미니</td><td><a data-u=":8777/송출.html">박첨지 합성 송출</a><span class="tag cam">카메라 — 맥미니 localhost</span></td><td class=key></td></tr>
+<tr><td class=who>오퍼 폰</td><td><a data-u=":8777/리모컨.html">박첨지 리모컨</a></td><td class=key data-k=relay></td></tr>
+<tr><td class=who>맥미니</td><td><a data-u=":8777/인형리깅_스왑.html">인형리깅 스왑</a><span class="tag cam">카메라</span></td><td class=key></td></tr>
+<tr><td class=who>맥미니</td><td><a data-u=":8777/화장보정.html">화장 보정</a><span class="tag cam">카메라</span></td><td class=key></td></tr>
+</table>
+
+<div class=note>
+● 초록 = 서버 켜짐 · 빨강 = 꺼짐 (10초마다 재확인) · 전체 기동: <b>700_공연네트워크/공연망_시작.command</b><br>
+EP3 미니어처는 웹 시스템 없음(프로브렌즈·음향만).<br>
+망이 바뀌면(다른 공연장·공유기 재부팅) <b>망변경_적용.command</b> — 서버는 안 끊고 QR만 새 IP로 다시 만든다. 런처가 켜져 있으면 15초마다 자동 감지.<br>
+<b>암호는 이 페이지에 저장돼 있지 않다.</b> 오퍼 기기에서 한 번 넣어두면 그 브라우저에만 남는다
+(<a href="javascript:setKeys()">암호 입력·수정</a> · <a href="javascript:clearKeys()">지우기</a>).
+</div>
+</div><script>
+/* ── 접속 대상 호스트 ──────────────────────────────────────────
+   로컬 서버(8899)에서 열면 그 호스트를 그대로 쓴다.
+   깃허브 페이지 등 외부(https)에서 열면 저장해둔 IP를 쓰고, 없으면 입력을 요구한다.
+   → 망이 바뀌어도 이 페이지 주소는 그대로, IP만 새로 넣으면 전 링크가 따라간다. */
+var LS='show_hub_host', LSK='show_hub_keys';
+var isLocal = location.protocol!=='https:' && !!location.hostname;
+var HOST = isLocal ? location.hostname : (localStorage.getItem(LS)||'');
+/* https(깃허브 페이지)에서는 브라우저가 http 요청을 막는다(혼합 콘텐츠) → 표시등만 끈다. 링크는 정상. */
+var CAN_PING = location.protocol!=='https:';
+
+function linkify(){
+ var as=document.querySelectorAll('a[data-u]');
+ for(var i=0;i<as.length;i++){ var a=as[i];
+  if(HOST){ a.href='http://'+HOST+a.getAttribute('data-u'); a.style.pointerEvents=''; a.style.opacity=''; }
+  else { a.removeAttribute('href'); a.style.pointerEvents='none'; a.style.opacity='.45'; } }
+ var st=document.getElementById('hoststate');
+ if(!HOST){
+  st.innerHTML='⚠️ <b>공연 맥북 IP를 넣어야 링크가 살아난다.</b> 맥북 런처가 출력한 IP를 그대로 입력해라.';
+ }else{
+  st.innerHTML='접속 대상: <b>'+HOST+'</b>'+(isLocal?' (이 서버에서 자동 인식)':' (저장됨 — 망이 바뀌면 여기만 고쳐라)')
+   +'<br>관객 안내 주소: <b>http://'+HOST+':8899/hub</b>'
+   +(CAN_PING?'':'<br>※ https로 열어서 상태 표시등은 꺼진다 — 링크는 정상 작동한다.');
+ }
+ document.getElementById('hostin').value=HOST;
+ ping();
+}
+function setHost(h){
+ HOST=(h||'').trim().replace(/^https?:\/\//,'').replace(/[:\/].*$/,'');
+ if(HOST) localStorage.setItem(LS,HOST); else localStorage.removeItem(LS);
+ linkify();
+}
+function applyHost(){ setHost(document.getElementById('hostin').value); }
+document.getElementById('hostin').addEventListener('keydown',function(e){ if(e.key==='Enter') applyHost(); });
+
+/* ── 암호: 저장소(깃허브)에 넣지 않는다. 오퍼 기기 브라우저에만 남는다 ── */
+var KEYDEF=[['chat','채팅 승인 콘솔(8787)'],['juyoung','주영 콘솔(8899)'],
+            ['relay','뷰티·박첨지 리모컨'],['race','레이스 오퍼 PIN']];
+function loadKeys(){ try{ return JSON.parse(localStorage.getItem(LSK)||'{}'); }catch(e){ return {}; } }
+function paintKeys(){ var k=loadKeys(), ts=document.querySelectorAll('.key[data-k]');
+ for(var i=0;i<ts.length;i++){ var v=k[ts[i].getAttribute('data-k')]; ts[i].textContent = v?('키 '+v):''; } }
+function setKeys(){ var k=loadKeys();
+ for(var i=0;i<KEYDEF.length;i++){ var id=KEYDEF[i][0];
+  var v=prompt(KEYDEF[i][1]+' 암호 (비우면 표시 안 함)', k[id]||'');
+  if(v===null) continue;
+  if(v.trim()) k[id]=v.trim(); else delete k[id]; }
+ localStorage.setItem(LSK,JSON.stringify(k)); paintKeys(); }
+function clearKeys(){ localStorage.removeItem(LSK); paintKeys(); }
+
+function ping(){
+ var ds=document.querySelectorAll('.dot[data-p]');
+ for(var i=0;i<ds.length;i++){ (function(d){
+  if(!HOST||!CAN_PING){ d.className='dot'; d.title=CAN_PING?'IP 미지정':'https에서는 상태 확인 불가 — 링크는 정상'; return; }
+  fetch('http://'+HOST+':'+d.getAttribute('data-p')+'/',{mode:'no-cors',cache:'no-store'})
+   .then(function(){ d.className='dot up'; })
+   .catch(function(){ d.className='dot down'; });
+ })(ds[i]); }
+}
+linkify(); paintKeys(); setInterval(ping,10000);
+</script></body></html>
