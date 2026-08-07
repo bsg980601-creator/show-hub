@@ -112,7 +112,9 @@ EP3 미니어처 본편은 웹 시스템 없음(프로브렌즈·음향만) — 
 <b>암호는 깃허브 공개본에 없다.</b> 이 맥에서 <code>localhost:8899/hub</code>로 열면 <code>keys.local.js</code>에서 자동으로 채워지고, 다른 기기는 한 번 넣어두면 그 브라우저에만 남는다
 (<a href="javascript:setKeys()">암호 입력·수정</a> · <a href="javascript:clearKeys()">지우기</a>).
 </div>
-</div><script>
+</div>
+<script src="keys.local.js" onerror="void 0"></script>
+<script>
 /* ── 접속 대상 호스트 ──────────────────────────────────────────
    로컬 서버(8899)에서 열면 그 호스트를 그대로 쓴다.
    깃허브 페이지 등 외부(https)에서 열면 저장해둔 IP를 쓰고, 없으면 입력을 요구한다.
