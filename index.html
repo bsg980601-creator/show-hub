@@ -109,7 +109,7 @@ PA 소리가 마이크에 새면 입이 계속 열린다 → <b>헤드셋·핀 �
 ● 초록 = 서버 켜짐 · 빨강 = 꺼짐 (10초마다 재확인) · 전체 기동: <b>700_공연네트워크/공연망_시작.command</b><br>
 EP3 미니어처 본편은 웹 시스템 없음(프로브렌즈·음향만) — 진입 브릿지만 목소리 립싱크를 쓴다.<br>
 망이 바뀌면(다른 공연장·공유기 재부팅) <b>망변경_적용.command</b> — 서버는 안 끊고 QR만 새 IP로 다시 만든다. 런처가 켜져 있으면 15초마다 자동 감지.<br>
-<b>암호는 이 페이지에 저장돼 있지 않다.</b> 오퍼 기기에서 한 번 넣어두면 그 브라우저에만 남는다
+<b>암호는 깃허브 공개본에 없다.</b> 이 맥에서 <code>localhost:8899/hub</code>로 열면 <code>keys.local.js</code>에서 자동으로 채워지고, 다른 기기는 한 번 넣어두면 그 브라우저에만 남는다
 (<a href="javascript:setKeys()">암호 입력·수정</a> · <a href="javascript:clearKeys()">지우기</a>).
 </div>
 </div><script>
@@ -150,7 +150,12 @@ document.getElementById('hostin').addEventListener('keydown',function(e){ if(e.k
 /* ── 암호: 저장소(깃허브)에 넣지 않는다. 오퍼 기기 브라우저에만 남는다 ── */
 var KEYDEF=[['chat','채팅 승인 콘솔(8787)'],['juyoung','주영 콘솔(8899)'],
             ['relay','뷰티·박첨지 리모컨'],['race','레이스 오퍼 PIN']];
-function loadKeys(){ try{ return JSON.parse(localStorage.getItem(LSK)||'{}'); }catch(e){ return {}; } }
+function loadKeys(){
+ var k={}; try{ k=JSON.parse(localStorage.getItem(LSK)||'{}'); }catch(e){}
+ /* keys.local.js 가 있으면(이 맥에서 로컬 서버로 열었을 때) 그 값을 우선한다.
+    이 파일은 .gitignore라 깃허브 공개본에는 존재하지 않는다 → 외부에선 암호가 안 보인다. */
+ if(window.SHOW_KEYS) for(var id in window.SHOW_KEYS){ if(window.SHOW_KEYS[id]) k[id]=window.SHOW_KEYS[id]; }
+ return k; }
 function paintKeys(){ var k=loadKeys(), ts=document.querySelectorAll('.key[data-k]');
  for(var i=0;i<ts.length;i++){ var v=k[ts[i].getAttribute('data-k')]; ts[i].textContent = v?('키 '+v):''; } }
 function setKeys(){ var k=loadKeys();
