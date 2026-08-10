@@ -22,7 +22,6 @@ a:active{opacity:.6}
 .svc{display:flex;align-items:center}
 .tag{font-size:11px;background:#2a2a38;color:#c8c8d4;border-radius:5px;padding:2px 6px;margin-left:6px;white-space:nowrap}
 .tag.cam{background:#3a2f00;color:#ffd24a}
-.tag.test{background:#3a1414;color:#ff8a8a}
 .rig{background:#16161c;border:1px solid #2a2a38;border-radius:9px;padding:11px 13px;margin:14px 0;font-size:13px;line-height:1.65;color:#c8c8d4}
 .rig b{color:#ffd24a}
 #hostbar{background:#16161c;border:1px solid #2a2a38;border-radius:10px;padding:12px 13px;margin-bottom:14px}
@@ -61,19 +60,8 @@ code{background:#23232e;padding:1px 5px;border-radius:4px;font-size:12px}
 <table>
 <tr><td class=who>관객 폰</td><td><span class=svc><span class=dot data-p=8787></span><a data-u=":8787/">채팅 참여</a></span></td><td class=key></td></tr>
 <tr><td class=who>오퍼</td><td><a data-u=":8787/admin">채팅 승인 콘솔</a></td><td class=key data-k=chat></td></tr>
-<tr><td class=who>OBS</td><td><a data-u=":8787/stage">채팅 송출 (투명 · 채팅+시청자수만)</a><span class="tag">?bg=green 크로마 · ?timer=on 타이머</span></td><td class=key></td></tr>
+<tr><td class=who>OBS</td><td><a data-u=":8787/stage?bg=transparent">채팅 송출 (투명)</a></td><td class=key></td></tr>
 </table>
-
-<h3 style="margin:14px 0 6px;font-size:14px;opacity:.85">↑ 위는 자가망 전용(같은 와이파이). 아래는 <b>인터넷만 되면 어디서든</b> — 리허설·원격 확인용</h3>
-<table>
-<tr><td class=who>관객 폰</td><td><a href="https://gomin-livechat.onrender.com/" target="_blank">채팅 참여 (인터넷)</a></td><td class=key></td></tr>
-<tr><td class=who>오퍼</td><td><a href="https://gomin-livechat.onrender.com/admin" target="_blank">채팅 승인 콘솔 (인터넷)</a></td><td class=key data-k=chat></td></tr>
-<tr><td class=who>OBS</td><td><a href="https://gomin-livechat.onrender.com/stage" target="_blank">채팅 송출 (인터넷 · 투명)</a></td><td class=key></td></tr>
-</table>
-<div class="note" style="margin-top:8px">
-<b>시청자수</b>는 아무도 없어도 <b>33명</b>에서 시작하고 실제 접속자가 더해진다.
-무료 플랜이라 <b>첫 접속에 20~40초 깨어나는 시간</b>이 걸린다 — 공연 당일엔 위쪽 자가망 주소를 쓴다.
-</div>
 
 <h2>EP1 · 주영 라이브 <small>SNS 커플 — 투표(큐 13~14)·도네이션</small></h2>
 <table>
@@ -116,18 +104,6 @@ PA 소리가 마이크에 새면 입이 계속 열린다 → <b>헤드셋·핀 �
 <tr><td class=who>맥미니</td><td><a data-u=":8777/인형리깅_스왑.html">인형리깅 스왑</a><span class="tag cam">카메라</span></td><td class=key></td></tr>
 <tr><td class=who>맥미니</td><td><a data-u=":8777/화장보정.html">화장 보정</a><span class="tag cam">카메라</span></td><td class=key></td></tr>
 </table>
-
-<h2 style="color:#ff8a8a">🧪 테스트중 <small>공연에 쓰지 않는다 — 개발·검증용</small></h2>
-<table>
-<tr><td class=who>맥북</td><td><span class=svc><span class=dot data-p=8777></span><a data-u=":8777/3D얼굴합성.html">박첨지 3D 얼굴합성 (미디어파이프)</a></span><span class="tag test">테스트중</span><span class="tag cam">카메라</span></td><td class=key>F전체화면·H패널</td></tr>
-</table>
-
-<div class=note style="border-color:#5a2a2a">
-<b>🧪 테스트중 = 공연 당일 쓰지 않는다.</b> 3D 인형 얼굴합성은 아직 제작 중이라 EP3 브릿지·EP4에 적용하지 않았다.
-기존 <b>박첨지 합성 송출/리모컨</b>(사진 스왑)이 공연용이고, 이건 별도 페이지다.<br>
-턱이 홈에서 위아래로 미끄러지고 입 안쪽은 검정 — 전통인형 실물 매커니즘 그대로다.
-클로드에서는 <code>/미디어파이프3d</code> 로 이어서 작업한다. 원리: 옵시디언 <code>210-124 전통인형 얼굴 움직임 원리</code>
-</div>
 
 <div class=note>
 ● 초록 = 서버 켜짐 · 빨강 = 꺼짐 (10초마다 재확인) · 전체 기동: <b>700_공연네트워크/공연망_시작.command</b><br>
