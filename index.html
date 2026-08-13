@@ -46,9 +46,54 @@ code{background:#23232e;padding:1px 5px;border-radius:4px;font-size:12px}
          autocapitalize=off autocorrect=off spellcheck=false>
   <button class=go onclick=applyHost()>적용</button>
   <button onclick="setHost('localhost')">이 맥</button>
+  <button class=go onclick=autoNet() title="서버에 지금 IP를 물어서 전 링크·QR을 새 망으로 갈아끼운다">🔁 지금 망으로 갱신</button>
  </div>
  <div id=hoststate></div>
+ <div id=qrbar>
+  <div class=qrrow>
+   <span class=qrlbl>관객 QR</span>
+   <span class=qrset><a class=qrb data-t=chat target=_blank>① 공연 전 채팅</a><a class="qrb dl" data-t=chat>⬇</a></span>
+   <span class=qrset><a class=qrb data-t=vote target=_blank>② 주영라이브 채팅</a><a class="qrb dl" data-t=vote>⬇</a></span>
+   <span class=qrset><a class=qrb data-t=game target=_blank>③ 물고기 레이스</a><a class="qrb dl" data-t=game>⬇</a></span>
+   <a class="qrb sub" data-t=hub target=_blank>허브(스태프)</a>
+  </div>
+  <div class=qrrow>
+   <span class=qrlbl>배경</span>
+   <span class=sw data-k=bg><b data-v="0">투명</b><b data-v="1">검정</b></span>
+   <span class=qrlbl>크기</span>
+   <span class=sw data-k=size><b data-v="380">작게</b><b data-v="520">보통</b><b data-v="720">크게</b></span>
+   <span class=qrlbl>제목</span>
+   <span class=sw data-k=notitle><b data-v="0">표시</b><b data-v="1">숨김</b></span>
+   <span class=qrlbl>주소글자</span>
+   <span class=sw data-k=nourl><b data-v="0">표시</b><b data-v="1">숨김</b></span>
+  </div>
+  <div class=qrrow>
+   <span class=qrlbl>얼굴합성 8778</span>
+   <span class=qrset><a class=qrb data-u=":8778/out" target=_blank>송출</a><a class="qrb dl" data-u=":8778/op" target=_blank>오퍼</a></span>
+   <span class=qrlbl>상태</span>
+   <span class=sw data-k=face><b data-v="0">테스트중</b><b data-v="1">공연적용</b></span>
+   <span class=qrlbl id=facest>—</span>
+  </div>
+  <div class=qrnote>스위치를 눌러두면 그 설정으로 열린다(이 기기에 저장됨). 망이 바뀌면 QR이 5초 안에 알아서 갈아탄다.
+   <br>얼굴합성은 <b>크롬</b>으로 연다 — 사파리는 localhost 카메라 권한이 한 번 거부되면 다시 묻지 않는다.</div>
+ </div>
 </div>
+<style>
+#qrbar{margin-top:12px;border-top:1px solid #2a2a33;padding-top:10px}
+.qrrow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:7px}
+.qrlbl{color:#9a9aa8;font-size:13px;margin-right:2px}
+.qrb{display:inline-block;padding:6px 11px;border-radius:8px;background:#2a2a33;color:#ffd24a;
+ text-decoration:none;font-size:13px;font-weight:700}
+.qrb:hover{background:#3a3a45}
+.qrset{display:inline-flex;gap:1px;margin-right:6px}
+.qrset .qrb:first-child{border-radius:8px 0 0 8px}
+.qrb.dl{border-radius:0 8px 8px 0;background:#23232e;color:#7dffb0;padding:6px 9px}
+.qrb.sub{background:#1c1c24;color:#8a8a98;font-weight:600}
+.sw{display:inline-flex;background:#1c1c24;border-radius:8px;overflow:hidden;margin-right:10px}
+.sw b{padding:6px 12px;font-size:13px;font-weight:700;color:#7a7a88;cursor:pointer;user-select:none}
+.sw b.on{background:#4a7dff;color:#fff}
+.qrnote{color:#666;font-size:12px}
+</style>
 
 <div class=rig>
 <b>🎥 장비 배치</b> — 맥북=OBS 스위칭 · 카메라 2대 캡쳐보드 직결 · 서버 5종 / 맥미니=카메라 3번 + 브라우저 화면<br>
@@ -101,6 +146,7 @@ QR은 <b>주소가 고정</b>이라 한 번 인쇄하면 계속 쓴다. 고해�
 <tr><td class=who>관객 폰</td><td><span class=svc><span class=dot data-p=8899></span><a data-u=":8899/">방송 시청 + 투표</a></span><span class=tag>투표는 열기 전 숨김</span></td><td class=key></td></tr>
 <tr><td class=who>오퍼</td><td><a data-u=":8899/admin">주영 콘솔 (투표·도네·카메라·크로마)</a></td><td class=key data-k=juyoung></td></tr>
 <tr><td class=who>OBS</td><td><a data-u=":8899/overlay">방송화면 (장면 재생)</a></td><td class=key></td></tr>
+<tr><td class=who>OBS</td><td><a data-u=":8899/overlay?bg=live">방송화면 라이브캠 (캡쳐보드·크로마키)</a><span class=tag>기본 — 뒤에 주영 방</span></td><td class=key></td></tr>
 <tr><td class=who>OBS</td><td><a data-u=":8899/overlay?bg=live&cam=phone">방송화면 라이브캠 (아이폰)</a><span class=tag>폰에서 열면 9:16</span></td><td class=key></td></tr>
 </table>
 
@@ -113,13 +159,24 @@ QR은 <b>주소가 고정</b>이라 한 번 인쇄하면 계속 쓴다. 고해�
 
 <h2>EP2 · 고등어 <small>도전 게임(큐 19) → 레이스(큐 23)</small></h2>
 <table>
-<tr><td class=who>송출</td><td><span class=svc><span class=dot data-p=3200></span><a data-u=":3200/">고등어 육지 대탈출 (원버튼)</a></span></td><td class=key>스페이스바</td></tr>
-<tr><td class=who>송출</td><td><span class=svc><span class=dot data-p=3000></span><a data-u=":3000/host.html">물고기 그랑프리 호스트</a></span></td><td class=key>S시작·R리셋·E종료</td></tr>
+<tr><td class=who>송출</td><td><span class=svc><span class=dot data-p=3200></span><a data-u=":3200/">고등어 육지 대탈출 (원버튼)</a></span></td><td class=key>플레이 스페이스바 · S시작·R리셋·T튜토생략·F피날레·M음소거</td></tr>
+<tr><td class=who>송출</td><td><span class=svc><span class=dot data-p=3000></span><a data-u=":3000/host.html">물고기 그랑프리 호스트</a></span></td><td class=key>S시작·R리셋·E종료·C캐스터·M음소거</td></tr>
 <tr><td class=who>관객 폰</td><td><a data-u=":3000/controller.html">레이스 컨트롤러</a></td><td class=key data-k=race></td></tr>
 </table>
+<div class=note style="margin:-6px 0 18px">
+<b>소리</b> — 두 게임 다 BGM이 깔린다. <b>M</b> 으로 즉시 음소거(새로고침해도 유지되고, 켜져 있으면 화면에 🔇 배지가 뜬다).<br>
+　고등어는 게임이 끝나면 2.6초에 걸쳐 페이드아웃된다. 레이스는 1~3위 시상에서 웅장한 곡이 나온다.<br>
+<b>레이스 결승</b> — 1위가 들어오면 유예 20초가 돌고, <b>마지막 10초를 큰 숫자 + 한국어 음성</b>으로 센다.
+　유예 자체를 10초로 줄이려면 <code>server.js</code> 의 <code>FINISH_GRACE_MS</code> 를 10000으로.<br>
+<b>NPC</b> — 사자물고기 1마리(<b>금빛갈기</b> 등)가 로비부터 떠 있어 관객 0명이어도 화면이 비지 않는다.
+　머리는 <b>공연에 쓰는 실물 사자탈을 3D 스캔</b>한 것이다.<br>
+⚠️ 오퍼 키는 <b>한글 입력 상태에서도 먹는다</b>(물리 키 판정). 한영 전환 신경 쓰지 않아도 된다.
+</div>
 
-<h2>EP2 → EP3 브릿지 · 목소리 립싱크 <small>박첨지가 말한다 — 전환 사이 메우기</small></h2>
+<h2>EP2 → EP3 브릿지 <small>시상 인터뷰(관객얼굴 합성) → 목소리 립싱크 — 전환 사이 메우기</small></h2>
 <table>
+<tr><td class=who>맥북</td><td><span class=svc><span class=dot data-p=8778></span><a data-u=":8778/out">시상 인터뷰 · 관객얼굴 합성 · 송출</a></span><span class="tag test">테스트중</span><span class="tag cam">카메라 — 맥북 localhost</span></td><td class=key>0 축우승·1 아기·2 죄수·3 감자·B 블랙</td></tr>
+<tr><td class=who>오퍼 폰</td><td><span class=svc><span class=dot data-p=8778></span><a data-u=":8778/op">관객얼굴 합성 · 컨트롤(오퍼)</a></span><span class="tag test">테스트중</span><span class="tag">⌘Z 되돌리기 · 방향키 홀</span></td><td class=key data-k=facecomp></td></tr>
 <tr><td class=who>송출</td><td><span class=svc><span class=dot data-p=8777></span><a data-u=":8777/목소리립싱크_테스트.html">목소리 립싱크 (자가망)</a></span><span class="tag">마이크만 — 카메라 불필요</span></td><td class=key>F전체화면·H패널숨김</td></tr>
 <tr><td class=who>어디서든</td><td><a href="https://bsg980601-creator.github.io/parkcheomji-lipsync/" target="_blank">목소리 립싱크 (인터넷·HTTPS)</a><span class="tag">비밀번호 = 릴레이 키</span></td><td class=key data-k=relay></td></tr>
 </table>
@@ -127,6 +184,30 @@ QR은 <b>주소가 고정</b>이라 한 번 인쇄하면 계속 쓴다. 고해�
 말하는 크기에 따라 입이 <b>닫힘 → 조금 → 활짝</b> 3단으로 열린다. 얼굴 인식을 안 쓰므로 조명·각도와 무관.<br>
 <b>시작 전 1회:</b> BGM 틀어놓고 말하지 않은 채 <b>잡음 측정</b> 2초 → 게이트 자동 설정. 그다음 <b>감도</b>로 미세조정.<br>
 PA 소리가 마이크에 새면 입이 계속 열린다 → <b>헤드셋·핀 마이크 권장.</b>
+</div>
+
+<div class=note style="border-color:#5a2a2a">
+<b>🧪 EP2 → EP3 브릿지 · 관객얼굴 합성 (포트 8778) — 테스트중, 공연 미적용.</b> <small>(2026-08-13 15:00 갱신 · 4큐 실구동 확인 완료 · 런처 편입)</small>
+EP2 시상 인터뷰(대본 2-15)에서 우승 관객 얼굴을 화면에 합성해 <b>EP3 로 넘어가는 사이를 메운다.</b> <b>4큐 확정:</b>
+<b>0</b> 축 우승 — 촬영부스(크로마키 상반신, 자막 「축 우승!」) · <b>1</b> 아기 — 백일사진(자막 「축 백일」) ·
+<b>2</b> 죄수 — 머그샷, 죄명 <b>「습관성 허언증」</b>이 이미지에 인쇄 · <b>3</b> 감자 — <b>평범한 현대 식탁</b>에서 얼굴 붙은 감자가 젓가락에 들려 사람 입으로 통째로 들어가 씹히는 영상(10초) · <b>B</b> 블랙.<br>
+웃음 구조는 <b>정보 격차</b> — 무대의 우승자는 자기 화면을 못 보고, 박첨지가 상반된 예/아니오 질문을 던져 육성 대답이 화면 속 처지의 대사가 된다.<br>
+<b>🌐 다른 공연장·다른 망에서도 그대로 쓴다 (2026-08-13 편입).</b>
+<b>공연망_시작.command 가 8778 도 같이 띄운다</b> — 따로 실행할 필요가 없다(단독으로 쓸 때만 <code>EP3_관객얼굴합성/시작.command</code>).
+망이 바뀌면 위 <b>「🔁 지금 망으로 갱신」</b> 한 번이면 이 표의 8778 링크도 새 IP로 따라간다.
+오퍼 폰·아이패드는 <b>같은 와이파이에서 <code>:8778/op</code></b> 로 붙는다 — <b>암호는 고정</b>이라 망이 바뀌어도 그대로다(위 표의 열쇠 칸).
+<b>송출만은 반드시 맥북 <code>localhost</code></b> — 브라우저가 IP 주소로는 카메라를 안 열어준다.<br>
+⚠️ <b>브라우저는 크롬을 쓴다</b> — 사파리는 localhost 카메라를 한 번 거부하면 다시 묻지 않아 화면이 검게 멈춘다(컨트롤에 「카메라 없음」).
+송출·오퍼는 <b>반드시 별도 창</b>으로 둔다.<br>
+⚠️ <b>플레이트에서 mp4를 지울 때 주의</b> — 없는 mp4를 크롬이 무한 대기해 소재 로딩이 안 끝나고 <b>카메라까지 안 열린다</b>(「시작하는 중…」에서 멈춤). 파일 존재를 먼저 확인(HEAD)해 막아뒀다.<br>
+⚠️ <b>같은 번호의 이미지를 플레이트에 남겨두지 않는다 (2026-08-13 사고).</b> mp4 로드가 늦으면 <code>N.png/webp</code>로 조용히 폴백한다 — 실제로 <b>감자 큐가 폐기된 사극판 정지 이미지로 바뀐 채 돌고 있었다.</b> 경고도 안 뜬다. 폐기본은 <code>plates/_보류/</code>로 내린다.<br>
+얼굴은 <b>윤곽으로 오려</b> 테두리만 페더링하고, 고개를 흔들어도 그림 자리에 고정되도록 즉시추적+데드존으로 잡는다.<br>
+0번 촬영부스는 <b>초록 스크린</b>이 필요하다. 컨트롤에서 <code>키 색 자동</code> 한 번 누르면 잡힌다.
+오퍼 창에 <b>송출(PGM)</b>과 <b>편집 프리뷰</b>가 따로 나오고, 편집 탭을 옮겨도 송출은 바뀌지 않는다.<br>
+<b>3번 감자 큐 실측(2026-08-13):</b> 얼굴이 감자 속살에 물려 원근 축소(288px→84px)를 끝까지 따라가고, 젓가락이 앞을 지나면 마스크가 그 뒤로 넣는다. 얼굴 노출 <b>8.4초/10초</b> · 검출 202/241프레임 · 입에 들어간 뒤(8.4초~) 얼굴 자동 소멸.<br>
+<b>⏸ 홀드 — 감자가 입에 들어가기 직전(8.17초)에 영상이 멈춰 5초 굳었다가 처음부터 다시 돈다.</b> 얼굴이 감자에 붙은 채 정지하므로 <b>그 5초가 박첨지 질문 자리</b>다. 초를 바꾸려면 <code>scenes.json</code> 3장면의 <code>hold:{at,sec}</code> (<code>at</code>=영상 진행률 0~1).<br>
+남은 것: 실제 초록 스크린 현장 테스트 · 얼굴↔그림 톤 맞춤(보류) · 대본 v5 2-15 반영(감자 큐 = 현대 식탁판) · <b>공연적용 전환 시점 판단(연출가)</b>.
+문서: <code>EP3_관객얼굴합성/README.md</code> · 볼트 <code>210-165</code>
 </div>
 
 <h2>EP4 · 얼굴필터·인형 합성 <small>맵핑 스왑 → 관객 합성 → 필터 룰렛 (큐 38)</small></h2>
@@ -140,15 +221,23 @@ PA 소리가 마이크에 새면 입이 계속 열린다 → <b>헤드셋·핀 �
 
 <h2 style="color:#ff8a8a">🧪 테스트중 <small>공연에 쓰지 않는다 — 개발·검증용</small></h2>
 <table>
+<tr><td class=who>맥북</td><td><span class=svc><span class=dot data-p=8123></span><a data-u=":8123/">EP3 진입 브릿지 · 리듬 인터랙티브</a></span><span class="tag test">테스트중</span><span class="tag">마이크 — 오디오 인터페이스</span></td><td class=key>T보정·H패널·P종료·R리셋</td></tr>
 <tr><td class=who>맥북</td><td><span class=svc><span class=dot data-p=8777></span><a data-u=":8777/3D얼굴합성.html">박첨지 3D 얼굴합성 (미디어파이프)</a></span><span class="tag test">테스트중</span><span class="tag cam">카메라</span></td><td class=key>F전체화면·H패널</td></tr>
 </table>
 
 <div class=note style="border-color:#5a2a2a">
+<b>🧪 EP3 진입 브릿지 (포트 8123) — 개발 중.</b>
+126 BPM 콜앤리스폰스 리듬 인터랙티브. 인트로 15초(음악+설명) → 손뼉1 → 손뼉2 → 어이(가속) → 다같이(가속) → 아웃트로. 전체 약 85초, 자동 진행.
+<b>현장에서 먼저 할 것: <code>T</code> 자동보정</b>(음악 켠 상태로 2초 조용히) — 임계값이 안 맞으면 관객 소리를 못 받는다.
+서버: <code>cd ~/Desktop/2026 작업/박첨지_브릿지음악/브릿지앱 &amp;&amp; python3 -m http.server 8123</code>
+남은 것: 「어이」 배우 목소리로 교체 · 하울백 확인 · 현장 임계값 실측.<br><br>
 <b>🧪 테스트중 = 공연 당일 쓰지 않는다.</b> 3D 인형 얼굴합성은 아직 제작 중이라 EP3 브릿지·EP4에 적용하지 않았다.
 기존 <b>박첨지 합성 송출/리모컨</b>(사진 스왑)이 공연용이고, 이건 별도 페이지다.<br>
 턱이 홈에서 위아래로 미끄러지고 입 안쪽은 검정 — 전통인형 실물 매커니즘 그대로다.
 클로드에서는 <code>/미디어파이프3d</code> 로 이어서 작업한다. 원리: 옵시디언 <code>210-124 전통인형 얼굴 움직임 원리</code>
 </div>
+
+
 
 <div class=note>
 ● 초록 = 서버 켜짐 · 빨강 = 꺼짐 (10초마다 재확인) · 전체 기동: <b>700_공연네트워크/공연망_시작.command</b><br>
@@ -184,6 +273,7 @@ function linkify(){
    +(CAN_PING?'':'<br>※ https로 열어서 상태 표시등은 꺼진다 — 링크는 정상 작동한다.');
  }
  document.getElementById('hostin').value=HOST;
+ qrlinks();
  ping();
 }
 function setHost(h){
@@ -192,11 +282,110 @@ function setHost(h){
  linkify();
 }
 function applyHost(){ setHost(document.getElementById('hostin').value); }
+
+/* ── 🔁 지금 망으로 갱신 ──────────────────────────────────────────
+   공연장이 바뀌면 IP가 바뀐다. 서버(8899)의 /ip 에 물어서 지금 IP를 받아
+   전 링크와 QR 오버레이 주소를 한 번에 갈아끼운다. 서버는 안 건드린다 —
+   진행 중인 투표·레이스가 끊기지 않는다. */
+/* 화면에 이미 떠 있는 QR <img>를 캐시 무시하고 다시 받는다 (새 IP 반영) */
+function bustQR(){
+ var t=Date.now();
+ [].forEach.call(document.images, function(im){
+   if(!im.src) return;
+   if(im.src.indexOf('/qr')<0 && im.src.indexOf('QR_')<0) return;
+   im.src = im.src.replace(/([?&])_b=\d+/,'$1_b='+t);
+   if(im.src.indexOf('_b=')<0) im.src += (im.src.indexOf('?')<0?'?':'&')+'_b='+t;
+ });
+}
+function autoNet(){
+ var st=document.getElementById('hoststate');
+ st.innerHTML='🔁 지금 망을 확인하는 중…';
+ var base = CAN_PING ? ('http://'+(HOST||location.hostname||'localhost')+':8899') : '';
+ if(!base){ st.innerHTML='⛔ https로 열려 있어 자동 감지를 못 한다. 맥북에서 <b>localhost:8899/hub</b>로 열어라.'; return; }
+ fetch(base+'/ip',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+  if(!d.ip){ st.innerHTML='⛔ 네트워크 미연결. 공유기·핫스팟에 연결한 뒤 다시 눌러라.'; return; }
+  var dead=[]; for(var p in d.alive){ if(!d.alive[p]) dead.push(p); }
+  setHost(d.ip);
+  var head='✅ 새 망 적용됨 — <b>'+d.ip+'</b>'+(d.ssid?' ('+d.ssid+')':'')
+    +'<br>관객 안내 주소: <b>http://'+d.ip+':8899/hub</b>'
+    +(dead.length?'<br>🛑 꺼진 서버: <b>'+dead.join(' ')+'</b> → 공연망_시작.command 를 다시 실행해라.'
+                 :'<br>서버 5종 전부 정상.');
+  st.innerHTML = head + '<br>🔄 인쇄용 QR 파일을 새 IP로 다시 만드는 중…';
+  // 화면 QR(/qr.png·오버레이)은 주소를 그때그때 그리므로 위 setHost로 이미 따라갔다.
+  // IP가 박혀 저장돼 있는 건 700_공연네트워크/QR_*.png 뿐 → 서버에 재생성을 시킨다.
+  fetch(base+'/qr/regen',{cache:'no-store'}).then(function(r){return r.json();}).then(function(g){
+    st.innerHTML = head + (g.ok
+      ? '<br>🖼 <b>QR 파일도 새 IP로 다시 만들었다.</b> 화면 QR은 이미 갱신됨.'
+      : '<br>⚠️ QR 파일 재생성 실패: '+(g.msg||'')+' → <b>망변경_적용.command</b> 로 직접 돌려라.');
+    bustQR();
+  }).catch(function(){
+    st.innerHTML = head + '<br>⚠️ QR 재생성 요청 실패 → <b>망변경_적용.command</b> 로 직접 돌려라.';
+    bustQR();
+  });
+ }).catch(function(){
+  st.innerHTML='⛔ 8899 서버에 못 붙었다. 공연망_시작.command 가 켜져 있는지 확인해라.';
+ });
+}
+/* ── QR 오버레이 스위치 ──────────────────────────────────────────
+   주소창에 &bg=1&size=720 같은 걸 손으로 치지 않게, 스위치로 눌러 만든다.
+   고른 값은 이 기기에만 저장되고 링크 5종에 한꺼번에 반영된다. */
+var QLS='show_hub_qropt';
+var QDEF={bg:'0',size:'520',notitle:'0',nourl:'0',face:'0'};
+var QOPT=(function(){ try{ return Object.assign({},QDEF,JSON.parse(localStorage.getItem(QLS)||'{}')); }
+                      catch(e){ return Object.assign({},QDEF); } })();
+/* 관객이 QR로 들어가는 셋 + 스태프 허브. server.py 의 T 와 같은 표다. */
+var QT={chat:{port:8787,path:'/',file:'QR_공연전채팅'},
+        vote:{port:8899,path:'/',file:'QR_주영라이브채팅'},
+        game:{port:3000,path:'/controller.html',file:'QR_물고기레이스'},
+        hub :{port:8899,path:'/hub',file:'QR_허브'}};
+function qrlinks(){
+ var h=HOST||'localhost';
+ var as=document.querySelectorAll('a.qrb');
+ for(var i=0;i<as.length;i++){
+  var t=as[i].getAttribute('data-t'), d=QT[t];
+  if(!d) continue;                 /* data-u 로 직접 여는 버튼(얼굴합성 등)은 건너뛴다 */
+  if(as[i].classList.contains('dl')){
+   /* ⬇ = 생성된 QR PNG(1200px)를 바로 파일로 받는다 */
+   var target='http://'+h+':'+d.port+d.path;
+   as[i].href='http://'+h+':8899/qr.png?d='+encodeURIComponent(target)+'&dl='+encodeURIComponent(d.file);
+   as[i].setAttribute('download',d.file+'.png');
+   as[i].title=d.file+'.png 내려받기 — '+target;
+   continue;
+  }
+  var p='?t='+t+'&size='+QOPT.size;
+  if(QOPT.bg==='1')p+='&bg=1';
+  if(QOPT.notitle==='1')p+='&notitle=1';
+  if(QOPT.nourl==='1')p+='&nourl=1';
+  as[i].href='http://'+h+':8899/qr'+p;
+ }
+ var sws=document.querySelectorAll('.sw');
+ for(var j=0;j<sws.length;j++){
+  var k=sws[j].getAttribute('data-k'), bs=sws[j].querySelectorAll('b');
+  for(var m=0;m<bs.length;m++) bs[m].className=(bs[m].getAttribute('data-v')===QOPT[k])?'on':'';
+ }
+ /* 얼굴합성 상태 스위치 — 표의 태그와 안내 문구를 함께 바꾼다 */
+ var live=QOPT.face==='1', st=document.getElementById('facest');
+ if(st) st.innerHTML=live?'<b style="color:#7dffb0">공연에 쓴다</b>':'<b style="color:#ff8a8a">공연 미적용</b>';
+ var ds=document.querySelectorAll('[data-p="8778"]');
+ for(var q=0;q<ds.length;q++){
+  var row=ds[q].parentNode.parentNode.parentNode; if(!row||row.tagName!=='TR') continue;
+  var t=row.querySelector('.tag.test');
+  if(t){ t.textContent=live?'공연적용':'테스트중';
+         t.style.background=live?'#12331c':''; t.style.color=live?'#7dffb0':''; }
+ }
+}
+document.addEventListener('click',function(e){
+ var b=e.target; if(b.tagName!=='B'||!b.parentNode.classList.contains('sw'))return;
+ QOPT[b.parentNode.getAttribute('data-k')]=b.getAttribute('data-v');
+ localStorage.setItem(QLS,JSON.stringify(QOPT));
+ qrlinks();
+});
 document.getElementById('hostin').addEventListener('keydown',function(e){ if(e.key==='Enter') applyHost(); });
 
 /* ── 암호: 저장소(깃허브)에 넣지 않는다. 오퍼 기기 브라우저에만 남는다 ── */
 var KEYDEF=[['chat','채팅 승인 콘솔(8787)'],['juyoung','주영 콘솔(8899)'],
-            ['relay','뷰티·박첨지 리모컨'],['race','레이스 오퍼 PIN']];
+            ['relay','뷰티·박첨지 리모컨'],['facecomp','관객얼굴 합성 컨트롤(8778)'],
+            ['race','레이스 오퍼 PIN']];
 function loadKeys(){
  var k={}; try{ k=JSON.parse(localStorage.getItem(LSK)||'{}'); }catch(e){}
  /* keys.local.js 가 있으면(이 맥에서 로컬 서버로 열었을 때) 그 값을 우선한다.
