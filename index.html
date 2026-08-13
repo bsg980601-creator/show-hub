@@ -95,8 +95,23 @@ code{background:#23232e;padding:1px 5px;border-radius:4px;font-size:12px}
 .qrnote{color:#666;font-size:12px}
 </style>
 
+<div class=rig style="border-color:#3a5a7a;background:#141a20">
+<b>🌐 다른 공연장·다른 망에서 쓰는 법</b> <small style="opacity:.6">— 공유기가 바뀌든 와이파이가 바뀌든 절차는 같다</small><br>
+<b>①</b> 맥북에서 <code>700_공연네트워크/공연망_시작.command</code> <b>하나만</b> 실행한다.
+서버 <b>6종(8787·8899·8777·8778·3000·3200)</b>이 뜨고 QR이 새 IP로 다시 만들어지며 허브가 자동으로 열린다.<br>
+<b>②</b> 관객·스태프 주소는 <b>런처가 찍어주는 IP</b>를 그대로 읽는다 → <code>http://&lt;IP&gt;:8899/hub</code><br>
+<b>③</b> 공연 중에 망만 바뀌었으면(공유기 재부팅 등) 위 <b>「🔁 지금 망으로 갱신」</b> 한 번 —
+서버는 안 끊고 이 표의 전 링크와 QR만 새 IP로 갈아탄다. 런처가 켜져 있으면 15초마다 자동 감지한다.<br>
+<b>④ 암호는 전부 고정</b>이라 망이 바뀌어도 그대로다(열쇠 칸). 오퍼 폰은 한 번 저장해두면 계속 쓴다.<br>
+<b>⑤ ⚠️ 카메라 쓰는 화면만은 예외</b> — <b>그 기기의 <code>localhost</code></b>로 열어야 한다.
+브라우저가 IP 주소로는 카메라를 안 열어준다(맥북 송출은 맥북에서, 맥미니 화면은 맥미니에서).<br>
+<b>⑥</b> 관객이 <b>각자 LTE·개인 와이파이</b>로 흩어져 있어도 되는 것은 <b>인터넷 채팅</b>뿐이다
+(<code>gomin-livechat.onrender.com</code> — 이 주소는 IP가 바뀌어도 영원히 유효, 인쇄 QR 재사용 가능).
+나머지는 <b>관객·오퍼가 맥북과 같은 망</b>에 있어야 한다.
+</div>
+
 <div class=rig>
-<b>🎥 장비 배치</b> — 맥북=OBS 스위칭 · 카메라 2대 캡쳐보드 직결 · 서버 5종 / 맥미니=카메라 3번 + 브라우저 화면<br>
+<b>🎥 장비 배치</b> — 맥북=OBS 스위칭 · 카메라 2대 캡쳐보드 직결 · 서버 6종 / 맥미니=카메라 3번 + 브라우저 화면<br>
 <b>⚠️ 노랑 태그 화면은 맥미니에서 <code>localhost</code>로 열어라.</b>
 브라우저 카메라는 localhost·HTTPS에서만 열려서, 맥미니가 맥북 IP로 접속하면 카메라가 차단된다.<br>
 맥미니 기동: <code>맥미니_송출시작.command</code> → 결과 화면을 <b>HDMI→맥북 캡쳐보드</b> 또는 <b>NDI</b>로 OBS에 넣는다.
